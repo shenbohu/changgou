@@ -1,0 +1,16 @@
+package com.changgou.goods.dao;
+
+import com.changgou.goods.pojo.Spec;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
+import java.util.Map;
+
+public interface SpecMapper extends Mapper<Spec> {
+    //根据商品分类名称查询规格列表
+    @Select("SELECT * from tb_spec where template_id  =(SELECT id from tb_template where name=#{categoryName})")
+    public List<Map> findListByCategoryName(@Param("categoryName") String categoryName);
+
+}
